@@ -1,0 +1,14 @@
+version: 0.2
+
+phases:
+  install:
+    runtime-versions:
+      nodejs: 18
+    commands:
+      - npm install
+  build:
+    commands:
+      - zip function.zip lambda_function.js node_modules -r
+  post_build:
+    commands:
+      - aws lambda update-function-code --function-name NOM_DE_TA_LAMBDA --zip-file fileb://function.zip --region eu-west-3
